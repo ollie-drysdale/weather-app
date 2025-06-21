@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Weather App</title>
-    </head>
-    <body>
-        <h1>OpenWeather</h1>
-        <input id="cityInput" type="text" placeholder="Enter a city" />
-        <button onclick="getWeather()">Get Weather</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>OpenWeather</h1>
 
-        <div id="weatherResult"></div>
+  <input id="cityInput" type="text" placeholder="Enter a city" />
+  <button onclick="getWeather()">Get Weather</button>
 
-        <script src="script.js"></script>
-    </body>
-    <link rel="stylesheet" href="style.css" />
+  <div id="weatherResult">
+    <p id="temperature"></p>
+    <p id="description"></p>
+    <p id="humidity"></p>
+    <p id="wind"></p>
+  </div>
+
+  <button id="toggle-temp">Switch to °F</button>
+
+  <script src="utils.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
