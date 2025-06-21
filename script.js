@@ -1,29 +1,41 @@
-async function getWeather() {
-    const city = document.getElementById('cityInput').value;
-    const apiKey = '31f8ca9a430da08e70faf4626fb35bfb';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+let isCelsius = true;
+let currentTempC = null;
 
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
+function getWeather() {
+  const city = document.getElementById('cityInput').value;
+  const apiKey = '31f8ca9a430da08e70faf4626fb35bfb'; // Replace this with your OpenWeatherMap API key
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-        if (data.cod === 200) {
-            const temp = data.main.temp;
-            const description = data.weather[0].description;
-            const icon = data.weather[0].icon;
-            const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  fetch(url)
+    .then(response => {
+      if (!response.ok) throw new Error('City not found');
+      return response.json();
+    })
+    .then(data => {
+      currentTempC = data.main.temp;
 
-            document.getElementById('weatherResult').innerHTML = `
-            <h2>${city}</h2>
-            <p><img src="${iconUrl}" alt="weather icon" /></p>
-            <p>Temperature: ${temp}°C</p?
-            <p>${description}</p>
-            `;
-        } else {
-            document.getElementById('weatherResult').innerHTML = `<p>City not found.</p>`;
-        }
-    } catch (error) {
-        console.error(error);
-        document.getElementById('weatherResult').innerHTML = `<p>Error fetching weather.</p>`;
-    }
+      document.getElementById('temperature').innerText = `${Math.round(currentTempC)}°C`;
+      document.getElementById('description').innerText = toTitleCase(data.weather[0].description);
+      document.getElementById('humidity').innerText = `Humidity: ${data.main.humidity}%`;
+      document.getElementById('wind').innerText = `Wind: ${data.wind.speed} m/s`;
+    })
+    .catch(error => {
+      document.getElementById('weatherResult').innerText = 'Could not fetch weather.';
+      console.error(error);
+    });
 }
+
+document.getElementById('toggle-temp').addEventListener('click', () => {
+  if (currentTempC === null) return;
+
+  isCelsius = !isCelsius;
+
+  const displayTemp = isCelsius
+    ? `${Math.round(currentTempC)}°C`
+    : `${Math.round((currentTempC * 9) / 5 + 32)}°F`;
+
+  document.getElementById('temperature').innerText = displayTemp;
+  document.getElementById('toggle-temp').innerText = isCelsius
+    ? 'Switch to °F'
+    : 'Switch to °C';
+});
