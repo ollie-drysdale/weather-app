@@ -4,17 +4,17 @@ body {
     padding: 2rem;
     background: linear-gradient(to bottom, #a2d4f4, #ffffff);
     min-height: 100vh;
-}
-
-input {
+  }
+  
+  input {
     padding: 0.5rem;
     font-size: 1rem;
     border-radius: 8px;
-    border: 1px sold #ccc;
+    border: 1px solid #ccc;
     width: 200px;
-}
-
-button {
+  }
+  
+  button {
     padding: 0.5rem 1rem;
     font-size: 1rem;
     margin-left: 10px;
@@ -23,17 +23,17 @@ button {
     background-color: #007bff;
     color: white;
     cursor: pointer;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #0056b3;
-}
-
-#weatherResult {
+  }
+  
+  #weatherResult {
     margin-top: 2rem;
     font-size: 1.2rem;
-}
-
-img {
+  }
+  
+  img {
     width: 80px;
-}
+  }
